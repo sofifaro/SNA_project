@@ -16,11 +16,11 @@ route:
 receivers:
   - name: 'email-me'
     email_configs:
-      - to: 'your-email@example.com'
-        from: 'alertmanager@yourdomain.com'
+      - to: 'vasilysa.lebedeva@gmail.com'
+        from: 'vasilysa.lebedeva@gmail.com'
         smarthost: 'smtp.gmail.com:587'
-        auth_username: 'your-email@gmail.com'
-        auth_password: 'your-app-password'   # use a Gmail App Password 
+        auth_username: 'vasilysa.lebedeva@gmail.com'
+        auth_password: '.... enter yours'   
         send_resolved: true
         headers:
           Subject: '[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}'
