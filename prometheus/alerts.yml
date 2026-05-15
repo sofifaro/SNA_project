@@ -2,14 +2,24 @@ groups:
   - name: alerts0
     rules:
       - alert: HighCPUUsage
-        expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100) > 10
-        for: 2m
+        expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100) > 50
+        for: 1m
         labels:
           severity: warning
         annotations:
           summary: "High CPU on {{ $labels.instance }}"
-          description: "CPU usage is above 10% for 2 minutes."
-    # i use > 10% just to show that everything is working, in real projects it shoud be 80% probably, like other metrics      
+          description: "CPU usage is above 50% for 1 minutes."
+
+      - alert: HighSystemLoad
+        expr: node_load1 > 3.0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High system load on {{ $labels.instance }}"
+          description: "1-minute load average is {{ $value }}"
+      # for your system you will need to adjust this rule expr: node_load1 > 3.0
+      # as my system has 8 cores, yours can be lower or higher
 
       - alert: HighMemoryUsage
         expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 55
@@ -21,15 +31,14 @@ groups:
           description: "Memory usage is above 55% for 2 minutes."
 
       - alert: DiskSpaceLow
-        expr: (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"})) * 100 > 50
-        for: 5m
+        expr: (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"})) * 100 > 80
+        for: 2m
         labels:
           severity: critical
         annotations:
           summary: "Low disk space on {{ $labels.instance }}"
           description: "Disk usage is above 50% on {{ $labels.mountpoint }}."
-    # again use > 50% just to show that everything is working, in real projects it shoud be 80% probably, like other metrics      
-
+    
       - alert: InstanceDown
         expr: up == 0
         for: 1m

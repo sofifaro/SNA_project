@@ -92,10 +92,10 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin       # certanly don't change this password!
+      - GF_SECURITY_ADMIN_PASSWORD=admin       # certanly don't change this password!)
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_SERVER_DOMAIN=localhost
-      - GF_SMTP_ENABLED=false                  # Grafana email alerts btw
+      - GF_SMTP_ENABLED=false                  # Grafana email alerts 
     volumes:
       - grafana-storage:/var/lib/grafana
     restart: unless-stopped
@@ -113,7 +113,7 @@ services:
       # - "443:443"   # for https if you need it
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      # - ./nginx/certs:/etc/nginx/certs:ro   # if you wanna use TLS certs?!
+      # - ./nginx/certs:/etc/nginx/certs:ro   # if you wanna use TLS certs
     depends_on:
       - grafana
     restart: unless-stopped

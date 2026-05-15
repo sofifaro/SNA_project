@@ -16,11 +16,11 @@ route:
 receivers:
   - name: 'email-me'
     email_configs:
-      - to: 'vasilysa.lebedeva@gmail.com'
-        from: 'vasilysa.lebedeva@gmail.com'
+      - to: 'your.email@gmail.com'
+        from: 'your.email@gmail.com'
         smarthost: 'smtp.gmail.com:587'
-        auth_username: 'vasilysa.lebedeva@gmail.com'
-        auth_password: '.... enter yours'   
+        auth_username: 'your.email@gmail.com'
+        auth_password: 'yourpassword'   
         send_resolved: true
         headers:
           Subject: '[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}'
